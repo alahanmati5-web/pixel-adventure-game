@@ -1,7 +1,9 @@
 
-/* =================================
-   PIXEL ADVENTURE - STYLE CSS
-================================= */
+/* ==========================================
+   PIXEL ADVENTURE - MODERN FANTASY DESIGN
+   ========================================== */
+
+/* RESET */
 
 * {
   margin: 0;
@@ -9,47 +11,75 @@
   box-sizing: border-box;
 }
 
+/* BODY */
+
 body {
-  background: linear-gradient(
-    135deg,
-    #172554,
-    #312e81,
-    #1e40af
-  );
-  font-family: Arial, sans-serif;
-  color: white;
   min-height: 100vh;
+  padding: 20px;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
+
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #ffffff;
+
+  background:
+    radial-gradient(circle at top left, #4338ca, transparent 40%),
+    radial-gradient(circle at bottom right, #0ea5e9, transparent 40%),
+    linear-gradient(135deg, #080f2e, #172554, #312e81);
+
+  background-attachment: fixed;
 }
 
 /* CONTAINER UTAMA */
 
 .game-container {
   width: 100%;
-  max-width: 650px;
+  max-width: 680px;
+
+  padding: 25px;
+
   text-align: center;
-  background: #1e3a8a;
-  padding: 20px;
-  border: 3px solid #60a5fa;
-  border-radius: 22px;
-  box-shadow: 0 10px 30px #0008;
+
+  background: rgba(15, 23, 60, 0.82);
+
+  border: 1px solid rgba(147, 197, 253, 0.4);
+  border-radius: 28px;
+
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.1);
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
-/* JUDUL */
+/* HEADER */
+
+.game-header {
+  margin-bottom: 25px;
+}
 
 .game-header h1 {
+  font-size: clamp(25px, 5vw, 36px);
+  font-weight: 900;
+
   color: #fde68a;
-  font-size: 30px;
+
+  letter-spacing: 1px;
+
+  text-shadow:
+    0 0 10px rgba(250, 204, 21, 0.6),
+    0 4px 15px rgba(0, 0, 0, 0.4);
+
   margin-bottom: 10px;
-  text-shadow: 2px 3px #78350f;
 }
 
 .game-header p {
-  color: #dbeafe;
-  margin-bottom: 20px;
+  font-size: 14px;
+  color: #bfdbfe;
+  letter-spacing: 0.5px;
 }
 
 /* INFORMASI GAME */
@@ -57,75 +87,121 @@ body {
 .game-info {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 15px;
+  gap: 12px;
+
+  margin-bottom: 20px;
 }
 
 .info-box {
   flex: 1;
-  background: #172554;
-  padding: 12px 5px;
-  border-radius: 12px;
-  border: 2px solid #60a5fa;
+
+  padding: 15px 8px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(30, 58, 138, 0.9),
+    rgba(15, 23, 60, 0.95)
+  );
+
+  border: 1px solid rgba(96, 165, 250, 0.65);
+  border-radius: 18px;
+
+  box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.2),
+    inset 0 1px 5px rgba(255, 255, 255, 0.05);
+
+  transition: 0.3s;
+}
+
+.info-box:hover {
+  transform: translateY(-4px);
+
+  border-color: #93c5fd;
+
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
 }
 
 .info-box span {
   display: block;
-  font-size: 13px;
-  margin-bottom: 6px;
+
+  margin-bottom: 8px;
+
   color: #bfdbfe;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .info-box strong {
+  display: block;
+
   color: #fde68a;
-  font-size: 20px;
+  font-size: 23px;
+  font-weight: 900;
+
+  text-shadow: 0 0 10px rgba(250, 204, 21, 0.3);
 }
 
 /* AREA PERMAINAN */
 
 #game-screen {
-  width: 100%;
-  height: 320px;
   position: relative;
-  overflow: hidden;
-  border: 4px solid white;
-  border-radius: 14px;
 
-  background: linear-gradient(
-    to bottom,
-    #38bdf8 0%,
-    #bae6fd 65%,
-    #86efac 65%,
-    #22c55e 100%
-  );
+  width: 100%;
+  height: 340px;
+
+  overflow: hidden;
+
+  border: 5px solid rgba(255, 255, 255, 0.9);
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #38bdf8 0%,
+      #7dd3fc 48%,
+      #bae6fd 65%,
+      #86efac 65%,
+      #4ade80 100%
+    );
+
+  box-shadow:
+    0 0 25px rgba(56, 189, 248, 0.3),
+    inset 0 0 25px rgba(255, 255, 255, 0.2);
 }
 
 /* AWAN */
 
 .cloud {
   position: absolute;
-  font-size: 38px;
-  animation: cloudMove 8s linear infinite alternate;
+
+  font-size: 42px;
+
+  opacity: 0.9;
+
+  user-select: none;
+
+  animation: cloudMove 9s ease-in-out infinite alternate;
 }
 
 .cloud-one {
-  top: 25px;
-  left: 15%;
+  top: 35px;
+  left: 12%;
 }
 
 .cloud-two {
-  top: 65px;
-  right: 15%;
+  top: 100px;
+  right: 12%;
+
   animation-delay: 2s;
 }
 
 @keyframes cloudMove {
   from {
-    transform: translateX(-10px);
+    transform: translateX(-15px);
   }
 
   to {
-    transform: translateX(20px);
+    transform: translateX(25px);
   }
 }
 
@@ -133,32 +209,64 @@ body {
 
 #player {
   position: absolute;
+
   bottom: 40px;
   left: 30px;
-  font-size: 42px;
+
   z-index: 5;
-  transition: left 0.05s linear;
+
+  font-size: 48px;
+
+  line-height: 1;
+
   user-select: none;
+  -webkit-user-select: none;
+
+  transition:
+    left 0.04s linear,
+    bottom 0.2s ease;
+
+  filter: drop-shadow(0 5px 5px rgba(0, 0, 0, 0.25));
 }
 
 /* KOIN */
 
 .coin {
   position: absolute;
-  bottom: 90px;
+
+  bottom: 55px;
   left: 70%;
-  font-size: 30px;
+
   z-index: 3;
-  animation: coinFloat 1s ease-in-out infinite alternate;
+
+  font-size: 34px;
+
+  user-select: none;
+
+  filter: drop-shadow(0 0 10px rgba(250, 204, 21, 0.9));
+
+  animation:
+    coinFloat 1s ease-in-out infinite alternate,
+    coinGlow 1.5s ease-in-out infinite alternate;
 }
 
 @keyframes coinFloat {
   from {
-    transform: translateY(0);
+    transform: translateY(0) rotate(-10deg);
   }
 
   to {
-    transform: translateY(-12px);
+    transform: translateY(-13px) rotate(10deg);
+  }
+}
+
+@keyframes coinGlow {
+  from {
+    filter: drop-shadow(0 0 5px #facc15);
+  }
+
+  to {
+    filter: drop-shadow(0 0 16px #fef08a);
   }
 }
 
@@ -166,26 +274,48 @@ body {
 
 .ground {
   position: absolute;
+
   bottom: 0;
+  left: 0;
+
   width: 100%;
   height: 40px;
-  background: repeating-linear-gradient(
-    90deg,
-    #15803d,
-    #15803d 20px,
-    #166534 20px,
-    #166534 40px
-  );
-  border-top: 5px solid #a3e635;
+
+  z-index: 4;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #15803d 0px,
+      #15803d 25px,
+      #166534 25px,
+      #166534 50px
+    );
+
+  border-top: 6px solid #a3e635;
+
+  box-shadow: 0 -4px 12px rgba(34, 197, 94, 0.3);
 }
 
 /* PESAN GAME */
 
 #game-message {
+  min-height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 20px 0;
+
+  padding: 10px;
+
   color: #fde68a;
-  font-weight: bold;
-  min-height: 24px;
-  margin: 18px 0;
+
+  font-size: 17px;
+  font-weight: 800;
+
+  text-shadow: 0 2px 8px rgba(250, 204, 21, 0.25);
 }
 
 /* TOMBOL MENU */
@@ -194,10 +324,19 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
+
+  gap: 15px;
+  margin: 15px 0;
 }
 
+/* SEMUA TOMBOL */
+
 button {
+  padding: 14px 22px;
+
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+
   background: linear-gradient(
     135deg,
     #fde047,
@@ -205,20 +344,37 @@ button {
   );
 
   color: #422006;
-  border: 2px solid #fef3c7;
-  padding: 13px 20px;
-  border-radius: 12px;
+
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 900;
+
   cursor: pointer;
-  box-shadow: 0 4px 0 #92400e;
-  transition: 0.15s;
+
+  box-shadow:
+    0 5px 0 #92400e,
+    0 8px 18px rgba(0, 0, 0, 0.2);
+
+  transition: all 0.2s ease;
+
   touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+  transform: translateY(-3px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 7px 0 #92400e,
+    0 12px 20px rgba(0, 0, 0, 0.25);
 }
 
 button:active {
   transform: translateY(3px);
-  box-shadow: 0 1px 0 #92400e;
+
+  box-shadow:
+    0 2px 0 #92400e;
 }
 
 /* KONTROL HP */
@@ -227,65 +383,160 @@ button:active {
   display: flex;
   justify-content: center;
   align-items: center;
+
   gap: 15px;
-  margin: 25px 0;
+
+  margin: 30px 0;
 }
 
 .mobile-controls button {
-  min-width: 75px;
-  min-height: 60px;
-  font-size: 23px;
+  min-width: 78px;
+  min-height: 70px;
+
   padding: 12px;
+
+  border-radius: 20px;
+
+  font-size: 25px;
+  font-weight: 900;
+
   user-select: none;
   -webkit-user-select: none;
+
   touch-action: none;
 }
 
+/* TOMBOL LOMPAT */
+
 .mobile-controls button:nth-child(2) {
-  min-width: 115px;
+  min-width: 135px;
+
   background: linear-gradient(
     135deg,
     #4ade80,
-    #16a34a
+    #059669
   );
+
   color: white;
-  box-shadow: 0 4px 0 #14532d;
+
+  border-color: #a7f3d0;
+
+  box-shadow:
+    0 5px 0 #065f46,
+    0 8px 18px rgba(0, 0, 0, 0.2);
 }
 
-/* PETUNJUK */
+.mobile-controls button:nth-child(2):hover {
+  box-shadow:
+    0 7px 0 #065f46,
+    0 12px 20px rgba(0, 0, 0, 0.25);
+}
+
+.mobile-controls button:nth-child(2):active {
+  box-shadow: 0 2px 0 #065f46;
+}
+
+/* PETUNJUK PERMAINAN */
 
 .instructions {
-  background: #172554;
-  border: 2px solid #60a5fa;
-  border-radius: 14px;
-  padding: 15px;
-  margin-top: 20px;
+  margin-top: 25px;
+  padding: 20px;
+
   text-align: left;
+
+  background: rgba(15, 23, 60, 0.8);
+
+  border: 1px solid rgba(96, 165, 250, 0.6);
+  border-radius: 20px;
+
+  box-shadow: inset 0 1px 8px rgba(255, 255, 255, 0.04);
 }
 
 .instructions h3 {
+  margin-bottom: 15px;
+
   text-align: center;
+
   color: #fde68a;
-  margin-bottom: 12px;
+  font-size: 18px;
 }
 
 .instructions p {
+  margin: 10px 0;
+
   color: #dbeafe;
-  margin: 9px 0;
   font-size: 14px;
+  line-height: 1.5;
 }
 
 /* FOOTER */
 
 footer {
-  margin-top: 22px;
-  color: #bfdbfe;
+  margin-top: 25px;
+
+  color: #93c5fd;
+
   font-size: 12px;
+  letter-spacing: 1px;
 }
 
-/* TAMPILAN HP */
+/* ANIMASI CONTAINER */
 
-@media (max-width: 480px) {
+.game-container {
+  animation: containerAppear 0.7s ease;
+}
+
+@keyframes containerAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* RESPONSIVE TABLET */
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  .game-container {
+    padding: 18px;
+    border-radius: 22px;
+  }
+
+  #game-screen {
+    height: 310px;
+  }
+
+  .game-header h1 {
+    font-size: 27px;
+  }
+
+  .mobile-controls {
+    gap: 10px;
+  }
+
+  .mobile-controls button {
+    min-width: 70px;
+    min-height: 65px;
+  }
+
+  .mobile-controls button:nth-child(2) {
+    min-width: 120px;
+  }
+}
+
+/* RESPONSIVE HP */
+
+@media (max-width: 400px) {
 
   body {
     padding: 8px;
@@ -293,18 +544,24 @@ footer {
 
   .game-container {
     padding: 13px;
+    border-radius: 18px;
   }
 
   .game-header h1 {
-    font-size: 24px;
+    font-size: 23px;
   }
 
-  #game-screen {
-    height: 280px;
+  .game-header p {
+    font-size: 12px;
+  }
+
+  .game-info {
+    gap: 7px;
   }
 
   .info-box {
-    padding: 10px 3px;
+    padding: 12px 4px;
+    border-radius: 13px;
   }
 
   .info-box span {
@@ -312,18 +569,45 @@ footer {
   }
 
   .info-box strong {
-    font-size: 18px;
+    font-size: 19px;
+  }
+
+  #game-screen {
+    height: 280px;
+    border-radius: 18px;
+  }
+
+  #player {
+    font-size: 43px;
+  }
+
+  .coin {
+    font-size: 30px;
   }
 
   .mobile-controls {
-    gap: 8px;
+    gap: 7px;
   }
 
   .mobile-controls button {
-    min-width: 65px;
+    min-width: 60px;
     min-height: 58px;
+    padding: 8px;
+    font-size: 21px;
   }
 
+  .mobile-controls button:nth-child(2) {
+    min-width: 110px;
+    font-size: 18px;
+  }
+
+  #game-message {
+    font-size: 14px;
+  }
+
+  .instructions {
+    padding: 15px;
+  }
 }
 
 /* AKHIR STYLE */
