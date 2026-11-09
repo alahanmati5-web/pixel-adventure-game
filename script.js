@@ -9,15 +9,18 @@ let level = 1;
 
 let isPlaying = false;
 let isJumping = false;
+let collected = false;
 
 let moveTimer = null;
 let jumpTimer = null;
+let collisionTimer = null;
+let respawnTimer = null;
 
 let coinPosition = 70;
-let collected = false;
 
 const player = document.getElementById("player");
 const screen = document.getElementById("game-screen");
+const coin = document.querySelector(".coin");
 
 const scoreText = document.getElementById("score");
 const livesText = document.getElementById("lives");
@@ -30,6 +33,11 @@ const message = document.getElementById("game-message");
 
 function startGame() {
 
+  clearInterval(moveTimer);
+  clearInterval(collisionTimer);
+  clearTimeout(jumpTimer);
+  clearTimeout(respawnTimer);
+
   score = 0;
   lives = 3;
   level = 1;
@@ -37,9 +45,6 @@ function startGame() {
   isPlaying = true;
   isJumping = false;
   collected = false;
-
-  clearInterval(moveTimer);
-  clearTimeout(jumpTimer);
 
   player.style.left = "30px";
   player.style.bottom = "40px";
@@ -50,14 +55,17 @@ function startGame() {
   livesText.innerText = lives;
   levelText.innerText = level;
 
-  message.innerText = "Petualangan dimulai! Ayo kumpulkan koin!";
+  message.innerText =
+    "Petualangan dimulai! Ayo kumpulkan koin!";
 
   document.getElementById("start-button").innerText =
     "🎮 GAME BERJALAN";
 
-  const coin = document.querySelector(".coin");
   coin.style.display = "block";
   coin.style.left = coinPosition + "%";
+
+  // Memeriksa tabrakan secara terus-menerus
+  collisionTimer = setInterval(checkCoin, 30);
 }
 
 // ==================================
@@ -70,17 +78,20 @@ function moveLeft() {
 
   clearInterval(moveTimer);
 
-  moveTimer = setInterval(function() {
+  function gerak() {
 
-    let posisi = player.offsetLeft - 5;
+    let posisi = player.offsetLeft - 8;
 
     if (posisi < 0) posisi = 0;
 
     player.style.left = posisi + "px";
 
     checkCoin();
+  }
 
-  }, 30);
+  gerak();
+
+  moveTimer = setInterval(gerak, 35);
 }
 
 // ==================================
@@ -93,20 +104,23 @@ function moveRight() {
 
   clearInterval(moveTimer);
 
-  moveTimer = setInterval(function() {
+  function gerak() {
 
     let batas =
       screen.clientWidth - player.offsetWidth;
 
-    let posisi = player.offsetLeft + 5;
+    let posisi = player.offsetLeft + 8;
 
     if (posisi > batas) posisi = batas;
 
     player.style.left = posisi + "px";
 
     checkCoin();
+  }
 
-  }, 30);
+  gerak();
+
+  moveTimer = setInterval(gerak, 35);
 }
 
 // ==================================
@@ -116,6 +130,7 @@ function moveRight() {
 function stopMove() {
 
   clearInterval(moveTimer);
+  moveTimer = null;
 
 }
 
@@ -130,6 +145,8 @@ function jump() {
   isJumping = true;
 
   player.style.bottom = "120px";
+
+  checkCoin();
 
   jumpTimer = setTimeout(function() {
 
@@ -151,30 +168,48 @@ function checkCoin() {
 
   if (!isPlaying || collected) return;
 
-  const coin = document.querySelector(".coin");
+  if (coin.style.display === "none") return;
 
   const playerRect = player.getBoundingClientRect();
   const coinRect = coin.getBoundingClientRect();
 
+  // Area tabrakan diberi toleransi
   const bertabrakan =
-    playerRect.left < coinRect.right &&
-    playerRect.right > coinRect.left &&
-    playerRect.top < coinRect.bottom &&
-    playerRect.bottom > coinRect.top;
+    playerRect.left - 15 < coinRect.right &&
+    playerRect.right + 15 > coinRect.left &&
+    playerRect.top - 20 < coinRect.bottom &&
+    playerRect.bottom + 20 > coinRect.top;
 
   if (bertabrakan) {
 
     collected = true;
 
+    // Tambah skor
     score += 10;
 
     scoreText.innerText = score;
 
+    // Sembunyikan koin
     coin.style.display = "none";
 
-    message.innerText = "🎉 Hebat! Kamu mendapatkan 10 koin!";
+    message.innerText =
+      "🎉 Hebat! Kamu mendapatkan 10 koin!";
 
-    setTimeout(function() {
+    // Naik level setiap 50 poin
+    if (score % 50 === 0) {
+
+      level++;
+
+      levelText.innerText = level;
+
+      message.innerText =
+        "🏆 Selamat! Kamu naik ke level " + level;
+    }
+
+    // Munculkan koin baru
+    clearTimeout(respawnTimer);
+
+    respawnTimer = setTimeout(function() {
 
       if (!isPlaying) return;
 
@@ -187,18 +222,6 @@ function checkCoin() {
       collected = false;
 
     }, 1000);
-
-    // Naik level setiap 50 poin
-    if (score % 50 === 0) {
-
-      level++;
-
-      levelText.innerText = level;
-
-      message.innerText =
-        "🏆 Selamat! Kamu naik ke level " + level;
-
-    }
 
   }
 
@@ -214,7 +237,10 @@ function gameOver() {
 
   stopMove();
 
+  clearInterval(collisionTimer);
+
   clearTimeout(jumpTimer);
+  clearTimeout(respawnTimer);
 
   message.innerText =
     "GAME OVER! Skor akhir: " + score;
@@ -242,24 +268,22 @@ document.addEventListener("keydown", function(e) {
   }
 
   if (e.key === "ArrowRight") {
-
     moveRight();
-
   }
 
   if (e.key === "ArrowLeft") {
-
     moveLeft();
-
   }
 
   if (e.key === "ArrowUp" || e.key === " ") {
-
     jump();
-
   }
 
 });
+
+// ==================================
+// LEPAS TOMBOL KEYBOARD
+// ==================================
 
 document.addEventListener("keyup", function(e) {
 
@@ -267,9 +291,7 @@ document.addEventListener("keyup", function(e) {
     e.key === "ArrowRight" ||
     e.key === "ArrowLeft"
   ) {
-
     stopMove();
-
   }
 
 });
@@ -277,4 +299,3 @@ document.addEventListener("keyup", function(e) {
 // ==================================
 // SELESAI
 // ==================================
-
