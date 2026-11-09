@@ -4,24 +4,118 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Pixel Adventure</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
   <div class="game-container">
-    <h1>🌳 Pixel Adventure</h1>
-    <p>Petualangan dimulai!</p>
 
-    <div id="game-screen">
-      <div id="player">🧑‍🚀</div>
-      <div class="coin">🪙</div>
+    <!-- JUDUL GAME -->
+    <header class="game-header">
+      <h1>🌳 Pixel Adventure</h1>
+      <p>Jelajahi dunia dan kumpulkan koin!</p>
+    </header>
+
+    <!-- INFORMASI PERMAINAN -->
+    <div class="game-info">
+
+      <div class="info-box">
+        <span>⭐ Skor</span>
+        <strong id="score">0</strong>
+      </div>
+
+      <div class="info-box">
+        <span>❤️ Nyawa</span>
+        <strong id="lives">3</strong>
+      </div>
+
+      <div class="info-box">
+        <span>🏆 Level</span>
+        <strong id="level">1</strong>
+      </div>
+
     </div>
 
-    <p id="score">Skor: 0</p>
-    <button onclick="startGame()">MULAI GAME</button>
+    <!-- AREA PERMAINAN -->
+    <div id="game-screen">
+
+      <div class="cloud cloud-one">☁️</div>
+      <div class="cloud cloud-two">☁️</div>
+
+      <div id="player">🧑‍🚀</div>
+
+      <div class="coin">🪙</div>
+
+      <div class="ground"></div>
+
+    </div>
+
+    <!-- PESAN GAME -->
+    <p id="game-message">
+      Tekan MULAI untuk memulai petualangan!
+    </p>
+
+    <!-- TOMBOL MULAI -->
+    <div class="menu-buttons">
+
+      <button id="start-button" onclick="startGame()">
+        ▶ MULAI GAME
+      </button>
+
+      <button onclick="location.reload()">
+        🔄 ULANGI
+      </button>
+
+    </div>
+
+    <!-- KONTROL HP -->
+    <div class="mobile-controls">
+
+      <button
+        onpointerdown="moveLeft()"
+        onpointerup="stopMove()"
+        onpointerleave="stopMove()"
+        onpointercancel="stopMove()">
+        ◀
+      </button>
+
+      <button onclick="jump()">
+        ⬆ LOMPAT
+      </button>
+
+      <button
+        onpointerdown="moveRight()"
+        onpointerup="stopMove()"
+        onpointerleave="stopMove()"
+        onpointercancel="stopMove()">
+        ▶
+      </button>
+
+    </div>
+
+    <!-- PETUNJUK -->
+    <div class="instructions">
+      <h3>📖 Petunjuk Permainan</h3>
+      <p>◀ Bergerak ke kiri</p>
+      <p>▶ Bergerak ke kanan</p>
+      <p>⬆ Melompat</p>
+      <p>🪙 Kumpulkan koin sebanyak mungkin!</p>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>Made with ❤️ | Pixel Adventure 2026</p>
+    </footer>
+
   </div>
 
+  <!-- JAVASCRIPT -->
   <script src="script.js"></script>
+
 </body>
 </html>
+
